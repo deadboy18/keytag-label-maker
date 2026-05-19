@@ -3,161 +3,165 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Key Tag Label Maker</title>
+<title>Key Tag Label Maker — Free Printable Key Tag Labels</title>
+<meta name="description" content="Free browser-based tool to create print-ready paper inserts for plastic key identification tags. Type, print, cut, slide. A4 ready, auto-fit text, bulk input.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏷️</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+/* ─── THEME VARIABLES ─── */
 :root {
-  --bg: #f5f3f0;
-  --surface: #ffffff;
-  --text: #1a1a1a;
-  --text-muted: #777;
-  --accent: #e85d2a;
-  --accent-light: #fff0eb;
-  --border: #ddd;
-  --border-dark: #444;
-  --grid-bg: #fafafa;
-  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  --bg:#f5f3f0; --surface:#fff; --text:#1a1a1a; --text-muted:#777;
+  --accent:#e85d2a; --accent-light:#fff0eb;
+  --border:#ddd; --border-dark:#444; --grid-bg:#fafafa;
+  --shadow:0 2px 12px rgba(0,0,0,0.06);
+  --page-bg:#fff; --cell-hover:#fff0eb; --cell-dash:#888;
+  --header-bg:#1a1a1a;
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+body.dark {
+  --bg:#1a1a1a; --surface:#2a2a2a; --text:#e8e8e8; --text-muted:#999;
+  --accent:#ff7043; --accent-light:#3d2a22;
+  --border:#444; --border-dark:#888; --grid-bg:#333;
+  --shadow:0 2px 12px rgba(0,0,0,0.3);
+  --page-bg:#252525; --cell-hover:#3d2a22; --cell-dash:#666;
+  --header-bg:#111;
+}
 
-/* ─── HEADER ─── */
-.header { background: var(--text); color: white; padding: 1.5rem 0; }
-.header-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-.logo { display: flex; align-items: center; gap: 0.75rem; }
-.logo-icon { width: 40px; height: 40px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
-.logo h1 { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; }
-.logo span { font-size: 0.75rem; color: rgba(255,255,255,0.5); font-weight: 400; display: block; }
-.header-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-.btn { padding: 0.5rem 1rem; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: white; border-radius: 6px; font-family: inherit; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 0.4rem; }
-.btn:hover { background: rgba(255,255,255,0.1); }
-.btn-accent { background: var(--accent); border-color: var(--accent); }
-.btn-accent:hover { background: #d04e1e; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;transition:background .2s,color .2s;}
 
-/* ─── MAIN ─── */
-.main { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+.header{background:var(--header-bg);color:#fff;padding:1.5rem 0;}
+.header-inner{max-width:1100px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.logo{display:flex;align-items:center;gap:.75rem;}
+.logo-icon{width:40px;height:40px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+.logo h1{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;}
+.logo span{font-size:.75rem;color:rgba(255,255,255,.5);display:block;}
+.header-actions{display:flex;gap:.5rem;flex-wrap:wrap;}
+.btn{padding:.5rem 1rem;border:1px solid rgba(255,255,255,.2);background:0 0;color:#fff;border-radius:6px;font-family:inherit;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:.4rem;}
+.btn:hover{background:rgba(255,255,255,.1);}
+.btn-accent{background:var(--accent);border-color:var(--accent);}
+.btn-accent:hover{background:#d04e1e;}
 
-/* ─── TOOLBAR ─── */
-.toolbar { background: var(--surface); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 0.75rem; box-shadow: var(--shadow); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
-.toolbar-group { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
-.tool-label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-.toolbar select, .toolbar input[type="number"] { padding: 0.4rem 0.6rem; border: 1px solid var(--border); border-radius: 6px; font-family: inherit; font-size: 0.85rem; background: var(--grid-bg); }
-.toolbar input[type="number"] { width: 60px; }
-.btn-sm { padding: 0.4rem 0.8rem; border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 6px; font-family: inherit; font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.15s; }
-.btn-sm:hover { background: var(--grid-bg); border-color: var(--border-dark); }
-.btn-sm.active { background: var(--text); color: white; border-color: var(--text); }
+.main{max-width:1100px;margin:0 auto;padding:2rem;}
 
-/* ─── FORMAT BAR ─── */
-.format-bar { background: var(--surface); border-radius: 10px; padding: 0.7rem 1.25rem; margin-bottom: 1.5rem; box-shadow: var(--shadow); display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
-.divider { width: 1px; height: 24px; background: var(--border); margin: 0 0.25rem; }
-.fmt-btn { width: 32px; height: 32px; border: 1px solid var(--border); background: var(--surface); border-radius: 6px; font-size: 0.85rem; font-family: inherit; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; color: var(--text); }
-.fmt-btn:hover { background: var(--grid-bg); border-color: var(--border-dark); }
-.fmt-btn.on { background: var(--text); color: white; border-color: var(--text); }
-.format-bar select { padding: 0.35rem 0.5rem; border: 1px solid var(--border); border-radius: 6px; font-family: inherit; font-size: 0.8rem; background: var(--grid-bg); cursor: pointer; }
-.size-input { width: 50px; padding: 0.35rem 0.4rem; border: 1px solid var(--border); border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; text-align: center; background: var(--grid-bg); }
-.auto-badge { font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: var(--accent-light); color: var(--accent); font-weight: 600; cursor: pointer; border: 1px solid transparent; transition: all 0.15s; user-select: none; }
-.auto-badge.on { background: var(--accent); color: white; }
-.auto-badge:hover { border-color: var(--accent); }
-.apply-all-wrap { display: flex; align-items: center; gap: 0.35rem; font-size: 0.75rem; color: var(--text-muted); cursor: pointer; user-select: none; padding: 0.3rem 0.5rem; border: 1px solid var(--border); border-radius: 6px; background: var(--grid-bg); }
-.apply-all-wrap:hover { border-color: var(--border-dark); }
-.apply-all-wrap input { cursor: pointer; }
+/* ─── TOOLBARS ─── */
+.toolbar,.format-bar,.status-bar{background:var(--surface);border-radius:10px;box-shadow:var(--shadow);display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.toolbar{padding:1rem 1.25rem;margin-bottom:.75rem;justify-content:space-between;gap:.75rem;}
+.format-bar{padding:.7rem 1.25rem;margin-bottom:.75rem;}
+.status-bar{padding:.6rem 1.25rem;margin-bottom:1.5rem;justify-content:space-between;font-size:.8rem;color:var(--text-muted);}
+.toolbar-group{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+.tool-label{font-size:.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;}
+.toolbar select,.toolbar input[type="number"]{padding:.4rem .6rem;border:1px solid var(--border);border-radius:6px;font-family:inherit;font-size:.85rem;background:var(--grid-bg);color:var(--text);}
+.toolbar input[type="number"]{width:60px;}
+.btn-sm{padding:.4rem .8rem;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:6px;font-family:inherit;font-size:.8rem;font-weight:500;cursor:pointer;transition:all .15s;}
+.btn-sm:hover{background:var(--grid-bg);border-color:var(--border-dark);}
+.btn-sm.active{background:var(--text);color:var(--bg);border-color:var(--text);}
+.divider{width:1px;height:24px;background:var(--border);margin:0 .25rem;}
+.fmt-btn{width:32px;height:32px;border:1px solid var(--border);background:var(--surface);border-radius:6px;font-size:.85rem;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;color:var(--text);}
+.fmt-btn:hover{background:var(--grid-bg);border-color:var(--border-dark);}
+.fmt-btn.on{background:var(--text);color:var(--bg);border-color:var(--text);}
+.format-bar select{padding:.35rem .5rem;border:1px solid var(--border);border-radius:6px;font-family:inherit;font-size:.8rem;background:var(--grid-bg);color:var(--text);cursor:pointer;}
+.size-input{width:50px;padding:.35rem .4rem;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.8rem;text-align:center;background:var(--grid-bg);color:var(--text);}
+.auto-badge{font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:var(--accent-light);color:var(--accent);font-weight:600;cursor:pointer;border:1px solid transparent;transition:all .15s;user-select:none;}
+.auto-badge.on{background:var(--accent);color:#fff;}
+.auto-badge:hover{border-color:var(--accent);}
+.apply-all-wrap{display:flex;align-items:center;gap:.35rem;font-size:.75rem;color:var(--text-muted);cursor:pointer;user-select:none;padding:.3rem .5rem;border:1px solid var(--border);border-radius:6px;background:var(--grid-bg);}
+.apply-all-wrap:hover{border-color:var(--border-dark);}
+.apply-all-wrap input{cursor:pointer;}
+.stat{display:flex;align-items:center;gap:.3rem;}
+.stat-num{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--text);}
+.stat-divider{color:var(--border);margin:0 .25rem;}
 
-/* ─── LABEL GRID ─── */
-.a4-container { background: var(--surface); border-radius: 10px; padding: 1.5rem; box-shadow: var(--shadow); margin-bottom: 2rem; overflow-x: auto; }
-.a4-page { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 5mm; background: white; border: 1px solid var(--border); position: relative; }
-.label-grid { display: flex; flex-wrap: wrap; gap: 0; }
-.label-cell { border: 1px dashed #888; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: text; position: relative; overflow: hidden; transition: border-color 0.15s; }
-.label-cell:hover { border-color: var(--accent); background: var(--accent-light); }
-.label-cell:focus-within { border-color: var(--accent); border-style: solid; background: #fff; z-index: 2; box-shadow: 0 0 0 2px rgba(232,93,42,0.2); }
-.label-text { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1mm; text-align: center; line-height: 1.2; word-break: break-word; outline: none; cursor: text; }
-.label-text:empty::before { content: attr(data-placeholder); color: #ccc; font-weight: 400; font-size: 8px; font-style: normal; text-decoration: none; }
-.label-cell .del-btn { position: absolute; top: 0; right: 0; width: 14px; height: 14px; background: #e53935; color: white; border: none; font-size: 9px; cursor: pointer; display: none; align-items: center; justify-content: center; border-radius: 0 0 0 3px; }
-.label-cell:hover .del-btn { display: flex; }
+/* ─── A4 PAGES ─── */
+.a4-container{background:var(--surface);border-radius:10px;padding:1.5rem;box-shadow:var(--shadow);margin-bottom:2rem;overflow-x:auto;}
+.a4-page{width:210mm;margin:0 auto;padding:5mm;background:var(--page-bg);border:1px solid var(--border);}
+.label-grid{display:flex;flex-wrap:wrap;gap:0;}
+.label-cell{border:1px dashed var(--cell-dash);display:flex;align-items:center;justify-content:center;cursor:text;position:relative;overflow:hidden;transition:border-color .15s;}
+.label-cell:hover{border-color:var(--accent);background:var(--cell-hover);}
+.label-cell:focus-within{border-color:var(--accent);border-style:solid;background:var(--page-bg);z-index:2;box-shadow:0 0 0 2px rgba(232,93,42,.2);}
+.label-text{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1mm;text-align:center;line-height:1.2;word-break:break-word;outline:none;cursor:text;color:var(--text);}
+.label-text:empty::before{content:attr(data-placeholder);color:#bbb;font-weight:400;font-size:8px;font-style:normal;text-decoration:none;}
+.label-cell .cell-btn{position:absolute;width:16px;height:16px;border:none;color:#fff;font-size:9px;cursor:pointer;display:none;align-items:center;justify-content:center;}
+.label-cell:hover .cell-btn{display:flex;}
+.del-btn{top:0;right:0;background:#e53935;border-radius:0 0 0 4px;}
+.dup-btn{top:0;right:17px;background:#4a90d9;border-radius:0 0 4px 0;font-size:10px;}
+
+/* ─── PAGE BREAK ─── */
+.page-break{width:210mm;margin:0 auto;padding:.6rem 0;display:flex;align-items:center;gap:.75rem;user-select:none;}
+.page-break-line{flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--accent) 0,var(--accent) 8px,transparent 8px,transparent 16px);}
+.page-break-label{font-size:.7rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;padding:.2rem .6rem;background:var(--accent-light);border-radius:4px;}
 
 /* ─── MODAL ─── */
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; }
-.modal-overlay.active { display: flex; }
-.modal { background: white; border-radius: 12px; padding: 2rem; width: 90%; max-width: 550px; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
-.modal h2 { font-size: 1.1rem; margin-bottom: 0.5rem; }
-.modal p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; }
-.modal textarea { width: 100%; height: 200px; padding: 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; resize: vertical; margin-bottom: 1rem; }
-.modal-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
-.modal .btn-sm { padding: 0.5rem 1.2rem; }
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;}
+.modal-overlay.active{display:flex;}
+.modal{background:var(--surface);border-radius:12px;padding:2rem;width:90%;max-width:550px;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);color:var(--text);}
+.modal h2{font-size:1.1rem;margin-bottom:.5rem;}
+.modal p{font-size:.85rem;color:var(--text-muted);margin-bottom:1rem;}
+.modal textarea{width:100%;height:200px;padding:.75rem;border:1px solid var(--border);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.8rem;resize:vertical;margin-bottom:1rem;background:var(--grid-bg);color:var(--text);}
+.modal-actions{display:flex;gap:.5rem;justify-content:flex-end;}
+.modal .btn-sm{padding:.5rem 1.2rem;}
 
-/* ─── INFO SECTION ─── */
-.info-section { background: var(--surface); border-radius: 10px; padding: 2rem; box-shadow: var(--shadow); margin-bottom: 2rem; }
-.info-section h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
-.info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
-.info-card { background: var(--grid-bg); border-radius: 8px; padding: 1.25rem; border: 1px solid var(--border); }
-.info-card h3 { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 0.75rem; }
-.info-row { display: flex; justify-content: space-between; padding: 0.3rem 0; font-size: 0.85rem; border-bottom: 1px solid rgba(0,0,0,0.05); }
-.info-row:last-child { border: none; }
-.info-row span:first-child { color: var(--text-muted); }
-.info-row span:last-child { font-weight: 600; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+/* ─── INFO ─── */
+.info-section{background:var(--surface);border-radius:10px;padding:2rem;box-shadow:var(--shadow);margin-bottom:2rem;}
+.info-section h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
+.info-card{background:var(--grid-bg);border-radius:8px;padding:1.25rem;border:1px solid var(--border);}
+.info-card h3{font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin-bottom:.75rem;}
+.info-row{display:flex;justify-content:space-between;padding:.3rem 0;font-size:.85rem;border-bottom:1px solid rgba(128,128,128,.15);}
+.info-row:last-child{border:none;}
+.info-row span:first-child{color:var(--text-muted);}
+.info-row span:last-child{font-weight:600;font-family:'JetBrains Mono',monospace;font-size:.8rem;}
+.tag-diagram{display:flex;align-items:center;justify-content:center;gap:2rem;padding:1.5rem;flex-wrap:wrap;}
+.tag-visual{width:160px;height:68px;background:linear-gradient(135deg,#4a90d9,#357abd);border-radius:30px;position:relative;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(74,144,217,.3);}
+.tag-window{width:100px;height:40px;background:#fff;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#333;}
+.tag-hole{width:14px;height:14px;border:3px solid rgba(255,255,255,.6);border-radius:50%;position:absolute;}
+.tag-hole-top{top:8px;left:12px;}.tag-hole-bottom{bottom:8px;right:12px;}
+.dim-label{position:absolute;font-size:9px;font-family:'JetBrains Mono',monospace;color:#fff;background:rgba(0,0,0,.5);padding:1px 4px;border-radius:3px;white-space:nowrap;}
+.download-bar{background:var(--surface);border-radius:10px;padding:1rem 1.5rem;box-shadow:var(--shadow);margin-bottom:2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.download-bar p{font-size:.85rem;color:var(--text-muted);}
+.download-bar a,.export-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1rem;background:var(--text);color:var(--bg);text-decoration:none;border-radius:6px;font-size:.85rem;font-weight:500;transition:background .15s;border:none;cursor:pointer;font-family:inherit;}
+.download-bar a:hover,.export-btn:hover{opacity:.85;}
+.footer{text-align:center;padding:2rem;color:var(--text-muted);font-size:.8rem;}
+.footer a{color:var(--accent);text-decoration:none;}.footer a:hover{text-decoration:underline;}
 
-.tag-diagram { display: flex; align-items: center; justify-content: center; gap: 2rem; padding: 1.5rem; flex-wrap: wrap; }
-.tag-visual { width: 160px; height: 68px; background: linear-gradient(135deg, #4a90d9, #357abd); border-radius: 30px; position: relative; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(74,144,217,0.3); }
-.tag-window { width: 100px; height: 40px; background: white; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #333; }
-.tag-hole { width: 14px; height: 14px; border: 3px solid rgba(255,255,255,0.6); border-radius: 50%; position: absolute; }
-.tag-hole-top { top: 8px; left: 12px; }
-.tag-hole-bottom { bottom: 8px; right: 12px; }
-.dim-label { position: absolute; font-size: 9px; font-family: 'JetBrains Mono', monospace; color: white; background: rgba(0,0,0,0.5); padding: 1px 4px; border-radius: 3px; white-space: nowrap; }
+/* ─── DARK MODE TOGGLE ─── */
+.theme-toggle{background:none;border:1px solid rgba(255,255,255,.2);color:#fff;width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.theme-toggle:hover{background:rgba(255,255,255,.1);}
 
-/* ─── DOWNLOAD SECTION ─── */
-.download-bar { background: var(--surface); border-radius: 10px; padding: 1rem 1.5rem; box-shadow: var(--shadow); margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-.download-bar p { font-size: 0.85rem; color: var(--text-muted); }
-.download-bar a { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; background: var(--text); color: white; text-decoration: none; border-radius: 6px; font-size: 0.85rem; font-weight: 500; transition: background 0.15s; }
-.download-bar a:hover { background: #333; }
+/* ─── UNDO TOAST ─── */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:.5rem 1rem;border-radius:8px;font-size:.8rem;font-weight:500;opacity:0;transition:opacity .2s;pointer-events:none;z-index:200;}
+.toast.show{opacity:1;}
 
-/* ─── FOOTER ─── */
-.footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.8rem; }
-.footer a { color: var(--accent); text-decoration: none; }
-.footer a:hover { text-decoration: underline; }
-
-/* ─── RESPONSIVE ─── */
-@media (max-width: 800px) {
-  .a4-page { width: 100%; min-height: auto; }
-  .main { padding: 1rem; }
-  .toolbar, .format-bar { flex-direction: column; align-items: stretch; }
-  .toolbar-group { justify-content: center; }
+@media(max-width:800px){.a4-page,.page-break{width:100%;}.main{padding:1rem;}.toolbar,.format-bar,.status-bar{flex-direction:column;align-items:stretch;}.toolbar-group{justify-content:center;}}
+@media print{
+  @page{size:A4 portrait;margin:5mm;}body{background:#fff!important;color:#000!important;}
+  .header,.toolbar,.format-bar,.status-bar,.info-section,.footer,.a4-container,.modal-overlay,.download-bar,.label-cell .cell-btn,.no-print,.toast{display:none!important;}
+  .print-page{display:block!important;width:200mm;padding:0;margin:0;}
+  .print-grid{display:flex;flex-wrap:wrap;gap:0;}
+  .print-cell{border:1px dashed #888;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;line-height:1.2;overflow:hidden;padding:1mm;word-break:break-word;color:#000;}
+  .print-page-break{page-break-before:always;}
 }
-
-/* ─── PRINT ─── */
-@media print {
-  @page { size: A4 portrait; margin: 5mm; }
-  body { background: white; }
-  .header, .toolbar, .format-bar, .info-section, .footer,
-  .a4-container, .modal-overlay, .download-bar,
-  .label-cell .del-btn, .no-print { display: none !important; }
-  .print-page { display: block !important; width: 200mm; padding: 0; margin: 0; }
-  .print-grid { display: flex; flex-wrap: wrap; gap: 0; }
-  .print-cell { border: 1px dashed #888; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; line-height: 1.2; overflow: hidden; padding: 1mm; word-break: break-word; page-break-inside: avoid; }
-}
-.print-page { display: none; }
+.print-page{display:none;}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="header">
   <div class="header-inner">
     <div class="logo">
       <div class="logo-icon">🏷️</div>
-      <div>
-        <h1>Key Tag Label Maker</h1>
-        <span>Print-ready labels for plastic key tags</span>
-      </div>
+      <div><h1>Key Tag Label Maker</h1><span>Print-ready labels for plastic key tags</span></div>
     </div>
     <div class="header-actions">
-      <button class="btn" onclick="scrollToInfo()">📐 Sizing Info</button>
-      <button class="btn" onclick="openBulkModal()">📋 Bulk Input</button>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
+      <button class="btn" onclick="scrollToInfo()">📐 Sizing</button>
+      <button class="btn" onclick="openBulkModal()">📋 Bulk</button>
+      <button class="btn" onclick="exportCSV()">📤 Export CSV</button>
       <button class="btn btn-accent" onclick="printLabels()">🖨️ Print / PDF</button>
     </div>
   </div>
 </header>
 
 <div class="main">
-
   <!-- SIZE TOOLBAR -->
   <div class="toolbar no-print">
     <div class="toolbar-group">
@@ -168,7 +172,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
         <option value="50,22">Large (5.0 × 2.2 cm)</option>
         <option value="custom">Custom…</option>
       </select>
-      <span id="customSize" style="display:none;">
+      <span id="customSize" style="display:none">
         <input type="number" id="customW" value="43" min="10" max="80" step="1"> ×
         <input type="number" id="customH" value="18" min="10" max="40" step="1">
         <button class="btn-sm" onclick="applyCustomSize()">Apply</button>
@@ -178,6 +182,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
       <span class="tool-label">Labels:</span>
       <button class="btn-sm" onclick="addLabels(10)">+ 10</button>
       <button class="btn-sm" onclick="addLabels(20)">+ 20</button>
+      <button class="btn-sm" onclick="addLabels(labelsPerPage())">+ 1 Page</button>
       <button class="btn-sm" onclick="clearAll()">Clear All</button>
     </div>
   </div>
@@ -197,425 +202,373 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
       <option value="'Courier New', monospace">Courier New</option>
       <option value="'JetBrains Mono', monospace">JetBrains Mono</option>
     </select>
-
     <div class="divider"></div>
-
-    <button class="fmt-btn" id="btnBold" onclick="formatCmd('bold')" title="Bold (Ctrl+B)"><span style="font-weight:800">B</span></button>
-    <button class="fmt-btn" id="btnItalic" onclick="formatCmd('italic')" title="Italic (Ctrl+I)"><span style="font-style:italic">I</span></button>
-    <button class="fmt-btn" id="btnUnderline" onclick="formatCmd('underline')" title="Underline (Ctrl+U)"><span style="text-decoration:underline">U</span></button>
-
-    <label class="apply-all-wrap" title="When checked, Bold/Italic/Underline applies to all labels">
-      <input type="checkbox" id="applyAllCheck"> Apply to all
-    </label>
-
+    <button class="fmt-btn" onclick="formatCmd('bold')" title="Bold (Ctrl+B)"><span style="font-weight:800">B</span></button>
+    <button class="fmt-btn" onclick="formatCmd('italic')" title="Italic (Ctrl+I)"><span style="font-style:italic">I</span></button>
+    <button class="fmt-btn" onclick="formatCmd('underline')" title="Underline (Ctrl+U)"><span style="text-decoration:underline">U</span></button>
+    <label class="apply-all-wrap" title="When checked, formatting applies to all labels"><input type="checkbox" id="applyAllCheck"> Apply to all</label>
     <div class="divider"></div>
-
     <span class="tool-label">Size:</span>
-    <input type="number" class="size-input" id="fontSize" min="6" max="24" value="12" onchange="applyFontSize()" title="Font size in px (6–24)">
-    <button class="auto-badge on" id="autoFitToggle" onclick="toggleAutoFit()" title="Auto-fit shrinks text to fit the box">AUTO-FIT</button>
-
+    <input type="number" class="size-input" id="fontSize" min="6" max="24" value="12" onchange="applyFontSize()" title="Font size 6–24 px">
+    <button class="auto-badge on" id="autoFitToggle" onclick="toggleAutoFit()">AUTO-FIT</button>
     <div class="divider"></div>
-
-    <button class="fmt-btn" onclick="applyAlign('left')" title="Align left" style="font-size:0.7rem;">◧</button>
-    <button class="fmt-btn" onclick="applyAlign('center')" title="Align center" style="font-size:0.7rem;">◫</button>
-    <button class="fmt-btn" onclick="applyAlign('right')" title="Align right" style="font-size:0.7rem;">◨</button>
+    <button class="fmt-btn" onclick="applyAlign('left')" title="Align left" style="font-size:.7rem">◧</button>
+    <button class="fmt-btn" onclick="applyAlign('center')" title="Align center" style="font-size:.7rem">◫</button>
+    <button class="fmt-btn" onclick="applyAlign('right')" title="Align right" style="font-size:.7rem">◨</button>
+    <div class="divider"></div>
+    <button class="btn-sm" onclick="undo()" title="Undo (Ctrl+Z)">↩ Undo</button>
+    <button class="btn-sm" onclick="redo()" title="Redo (Ctrl+Y)">↪ Redo</button>
   </div>
 
-  <!-- A4 LABEL GRID -->
-  <div class="a4-container no-print">
-    <div class="a4-page" id="a4Page">
-      <div class="label-grid" id="labelGrid"></div>
+  <!-- STATUS BAR -->
+  <div class="status-bar no-print">
+    <div class="toolbar-group">
+      <span class="stat">📄 <span class="stat-num" id="statPerPage">60</span>/page</span>
+      <span class="stat-divider">·</span>
+      <span class="stat"><span class="stat-num" id="statCols">4</span>×<span class="stat-num" id="statRows">15</span></span>
+      <span class="stat-divider">·</span>
+      <span class="stat">Total: <span class="stat-num" id="statTotal">60</span></span>
+      <span class="stat-divider">·</span>
+      <span class="stat">Pages: <span class="stat-num" id="statPages">1</span></span>
+      <span class="stat-divider">·</span>
+      <span class="stat">Filled: <span class="stat-num" id="statFilled">0</span></span>
     </div>
   </div>
 
-  <!-- PRINT-ONLY -->
-  <div class="print-page" id="printPage">
-    <div class="print-grid" id="printGrid"></div>
-  </div>
+  <div class="a4-container no-print" id="pagesContainer"></div>
+  <div class="print-page" id="printPage"><div class="print-grid" id="printGrid"></div></div>
 
-  <!-- DOWNLOAD BLANK TEMPLATE -->
+  <!-- DOWNLOAD -->
   <div class="download-bar no-print">
     <p>📥 <strong>Need to work offline?</strong> Download a blank Word template with pre-sized label boxes.</p>
-    <a href="keytag-labels-blank-template.docx" download>⬇ Download Blank Template (.docx)</a>
+    <a href="keytag-labels-blank-template.docx" download>⬇ Blank Template (.docx)</a>
   </div>
 
   <!-- SIZING INFO -->
   <div class="info-section" id="infoSection">
     <h2>📐 Key Tag Sizing Reference</h2>
     <div class="tag-diagram">
-      <div class="tag-visual">
-        <div class="tag-hole tag-hole-top"></div>
-        <div class="tag-window">GM ROOM</div>
-        <div class="tag-hole tag-hole-bottom"></div>
-        <div class="dim-label" style="top:-18px;left:50%;transform:translateX(-50%);">4.3 – 5.0 cm</div>
-        <div class="dim-label" style="right:-28px;top:50%;transform:translateY(-50%) rotate(90deg);">1.8 – 2.2 cm</div>
+      <div class="tag-visual"><div class="tag-hole tag-hole-top"></div><div class="tag-window">GM ROOM</div><div class="tag-hole tag-hole-bottom"></div>
+        <div class="dim-label" style="top:-18px;left:50%;transform:translateX(-50%)">4.3 – 5.0 cm</div>
+        <div class="dim-label" style="right:-28px;top:50%;transform:translateY(-50%) rotate(90deg)">1.8 – 2.2 cm</div>
       </div>
-      <div style="font-size:0.85rem;max-width:280px;">
-        <p style="margin-bottom:0.5rem;font-weight:600;">How it works</p>
-        <p style="color:var(--text-muted);font-size:0.8rem;">Type your label text, print at 100% scale, cut along the dashed lines, and slide the paper into your key tag's transparent window.</p>
-      </div>
+      <div style="font-size:.85rem;max-width:280px"><p style="margin-bottom:.5rem;font-weight:600">How it works</p><p style="color:var(--text-muted);font-size:.8rem">Type your label text, print at 100% scale, cut along the dashed lines, and slide the paper into your key tag's transparent window.</p></div>
     </div>
     <div class="info-grid">
-      <div class="info-card">
-        <h3>Standard Tag (Most Common)</h3>
-        <div class="info-row"><span>Tag body</span><span>5.0 × 2.2 cm</span></div>
-        <div class="info-row"><span>Visible window</span><span>2.8 × 1.4 cm</span></div>
-        <div class="info-row"><span>Paper insert</span><span>4.3 × 1.8 cm</span></div>
-        <div class="info-row"><span>Key ring</span><span>∅ 1.7 cm</span></div>
-        <div class="info-row"><span>Material</span><span>PP / PE plastic</span></div>
-      </div>
-      <div class="info-card">
-        <h3>Small Tag</h3>
-        <div class="info-row"><span>Tag body</span><span>4.8 × 2.2 cm</span></div>
-        <div class="info-row"><span>Visible window</span><span>2.9 × 1.4 cm</span></div>
-        <div class="info-row"><span>Paper insert</span><span>3.0 × 1.9 cm</span></div>
-        <div class="info-row"><span>Key ring</span><span>∅ 1.7 cm</span></div>
-        <div class="info-row"><span>Material</span><span>PP plastic</span></div>
-      </div>
-      <div class="info-card">
-        <h3>Large Tag</h3>
-        <div class="info-row"><span>Tag body</span><span>6.4 × 2.8 cm</span></div>
-        <div class="info-row"><span>Visible window</span><span>3.6 × 1.8 cm</span></div>
-        <div class="info-row"><span>Paper insert</span><span>5.0 × 2.2 cm</span></div>
-        <div class="info-row"><span>Key ring</span><span>∅ 2.0 cm</span></div>
-        <div class="info-row"><span>Material</span><span>PE plastic</span></div>
-      </div>
-      <div class="info-card">
-        <h3>Print Tips</h3>
-        <div class="info-row"><span>Paper size</span><span>A4</span></div>
-        <div class="info-row"><span>Scale</span><span>100% (actual)</span></div>
-        <div class="info-row"><span>Orientation</span><span>Portrait</span></div>
-        <div class="info-row"><span>Margins</span><span>5 mm minimum</span></div>
-        <div class="info-row"><span>Max font size</span><span>24 px</span></div>
-        <div class="info-row"><span>PDF export</span><span>Print → Save as PDF</span></div>
-      </div>
+      <div class="info-card"><h3>Standard Tag</h3><div class="info-row"><span>Tag body</span><span>5.0 × 2.2 cm</span></div><div class="info-row"><span>Window</span><span>2.8 × 1.4 cm</span></div><div class="info-row"><span>Paper insert</span><span>4.3 × 1.8 cm</span></div><div class="info-row"><span>Key ring</span><span>∅ 1.7 cm</span></div><div class="info-row"><span>Material</span><span>PP / PE</span></div></div>
+      <div class="info-card"><h3>Small Tag</h3><div class="info-row"><span>Tag body</span><span>4.8 × 2.2 cm</span></div><div class="info-row"><span>Window</span><span>2.9 × 1.4 cm</span></div><div class="info-row"><span>Paper insert</span><span>3.0 × 1.9 cm</span></div><div class="info-row"><span>Key ring</span><span>∅ 1.7 cm</span></div><div class="info-row"><span>Material</span><span>PP</span></div></div>
+      <div class="info-card"><h3>Large Tag</h3><div class="info-row"><span>Tag body</span><span>6.4 × 2.8 cm</span></div><div class="info-row"><span>Window</span><span>3.6 × 1.8 cm</span></div><div class="info-row"><span>Paper insert</span><span>5.0 × 2.2 cm</span></div><div class="info-row"><span>Key ring</span><span>∅ 2.0 cm</span></div><div class="info-row"><span>Material</span><span>PE</span></div></div>
+      <div class="info-card"><h3>Print Tips</h3><div class="info-row"><span>Paper</span><span>A4</span></div><div class="info-row"><span>Scale</span><span>100%</span></div><div class="info-row"><span>Orientation</span><span>Portrait</span></div><div class="info-row"><span>Margins</span><span>5 mm min</span></div><div class="info-row"><span>Max font</span><span>24 px</span></div><div class="info-row"><span>PDF</span><span>Print → Save as PDF</span></div></div>
     </div>
   </div>
 </div>
 
-<!-- BULK INPUT MODAL -->
 <div class="modal-overlay" id="bulkModal">
   <div class="modal">
     <h2>📋 Bulk Input</h2>
-    <p>One label per line. Use <code>/</code> or <code>|</code> to create a line break within a label.<br>
-    New labels will be <strong>added after</strong> your existing labels.</p>
-    <textarea id="bulkText" placeholder="GM ROOM
-SERVER ROOM / L1-3
-MEETING ROOM | B-13
-CANTEEN (1)
-FIRE PANEL"></textarea>
-    <div class="modal-actions">
-      <button class="btn-sm" onclick="closeBulkModal()">Cancel</button>
-      <button class="btn-sm active" onclick="applyBulk()">Add Labels</button>
-    </div>
+    <p>One label per line. Use <code>/</code> or <code>|</code> for line breaks within a label. Labels added after existing filled ones.</p>
+    <textarea id="bulkText" placeholder="GM ROOM&#10;SERVER ROOM / L1-3&#10;MEETING ROOM | B-13&#10;CANTEEN (1)"></textarea>
+    <div class="modal-actions"><button class="btn-sm" onclick="closeBulkModal()">Cancel</button><button class="btn-sm active" onclick="applyBulk()">Add Labels</button></div>
   </div>
 </div>
 
-<!-- FOOTER -->
+<div class="toast" id="toast"></div>
+
 <div class="footer no-print">
   <p>Key Tag Label Maker — Free & open source</p>
-  <p style="margin-top:0.25rem;">
-    <a href="https://github.com/deadboy18/keytag-label-maker" target="_blank">GitHub</a> · Made for building engineers & facility managers 🔑
-  </p>
+  <p style="margin-top:.25rem"><a href="https://github.com/deadboy18/keytag-label-maker" target="_blank">GitHub</a> · Made for building engineers & facility managers 🔑</p>
 </div>
 
 <script>
-// ─── STATE ───
-let labelWidth = 43;
-let labelHeight = 18;
-let labels = [];
-let nextId = 0;
+// ═══════════════════════════════════
+//  STATE
+// ═══════════════════════════════════
+let labelWidth=43, labelHeight=18, labels=[], nextId=0;
+let globalFont="Arial, sans-serif", globalAlign='center', autoFit=true;
+const MIN_FONT=6, MAX_FONT=24, DEFAULT_SIZE=12;
+const A4_W=200, A4_H=287;
 
-// Global format state
-let globalFont = "Arial, sans-serif";
-let globalAlign = 'center';
-let autoFit = true;
-const MIN_FONT = 6;
-const MAX_FONT = 24;
-const DEFAULT_FONT_SIZE = 12;
+// Undo/redo
+let undoStack=[], redoStack=[], lastSnapshot='';
 
-// ─── INIT ───
-function init() {
-  addLabels(60);
+function colCount(){return Math.floor(A4_W/labelWidth)}
+function rowCount(){return Math.floor(A4_H/labelHeight)}
+function labelsPerPage(){return colCount()*rowCount()}
+
+// ═══════════════════════════════════
+//  UNDO / REDO
+// ═══════════════════════════════════
+function snapshot(){
+  const s = JSON.stringify(labels.map(l=>l.text||''));
+  if(s===lastSnapshot) return;
+  undoStack.push(lastSnapshot);
+  if(undoStack.length>50) undoStack.shift();
+  lastSnapshot=s;
+  redoStack=[];
 }
-
-// ─── GRID RENDERING ───
-function renderGrid() {
-  const grid = document.getElementById('labelGrid');
-  grid.innerHTML = '';
-
-  labels.forEach((label, i) => {
-    const cell = document.createElement('div');
-    cell.className = 'label-cell';
-    cell.style.width = labelWidth + 'mm';
-    cell.style.height = labelHeight + 'mm';
-
-    const text = document.createElement('div');
-    text.className = 'label-text';
-    text.contentEditable = true;
-    text.setAttribute('data-placeholder', 'click to type');
-    text.innerHTML = label.text || '';
-
-    // Apply global styles
-    text.style.fontFamily = globalFont;
-    text.style.textAlign = globalAlign;
-    const size = getFontSize();
-    text.style.fontSize = size + 'px';
-
-    text.addEventListener('input', () => {
-      label.text = text.innerHTML;
-      if (autoFit) autoFitText(text);
-    });
-    text.addEventListener('focus', () => {
-      if (!label.text) text.innerHTML = '';
-    });
-    text.addEventListener('paste', (e) => {
-      e.preventDefault();
-      const pasted = (e.clipboardData || window.clipboardData).getData('text/plain');
-      document.execCommand('insertText', false, pasted);
-    });
-
-    const del = document.createElement('button');
-    del.className = 'del-btn';
-    del.innerHTML = '×';
-    del.onclick = (e) => { e.stopPropagation(); labels.splice(i, 1); renderGrid(); };
-
-    cell.appendChild(text);
-    cell.appendChild(del);
-    grid.appendChild(cell);
-
-    if (autoFit && label.text) {
-      requestAnimationFrame(() => autoFitText(text));
-    }
+function undo(){
+  if(!undoStack.length) return showToast('Nothing to undo');
+  syncFromDOM();
+  redoStack.push(JSON.stringify(labels.map(l=>l.text||'')));
+  const prev=JSON.parse(undoStack.pop());
+  lastSnapshot=JSON.stringify(prev);
+  // Restore labels
+  labels=prev.map((t,i)=>({id:i,text:t}));
+  nextId=labels.length;
+  renderPages();
+  showToast('Undo ↩');
+}
+function redo(){
+  if(!redoStack.length) return showToast('Nothing to redo');
+  syncFromDOM();
+  undoStack.push(JSON.stringify(labels.map(l=>l.text||'')));
+  const next=JSON.parse(redoStack.pop());
+  lastSnapshot=JSON.stringify(next);
+  labels=next.map((t,i)=>({id:i,text:t}));
+  nextId=labels.length;
+  renderPages();
+  showToast('Redo ↪');
+}
+function syncFromDOM(){
+  document.querySelectorAll('.label-text').forEach(el=>{
+    const idx=parseInt(el.getAttribute('data-idx'));
+    if(!isNaN(idx)&&labels[idx]) labels[idx].text=el.innerHTML;
   });
 }
 
-// ─── FONT SIZE ───
-function getFontSize() {
-  const val = parseInt(document.getElementById('fontSize').value) || DEFAULT_FONT_SIZE;
-  return Math.min(MAX_FONT, Math.max(MIN_FONT, val));
+// ═══════════════════════════════════
+//  DARK MODE
+// ═══════════════════════════════════
+function toggleDark(){
+  document.body.classList.toggle('dark');
+  const dark=document.body.classList.contains('dark');
+  document.getElementById('themeToggle').textContent=dark?'☀️':'🌙';
+  try{localStorage.setItem('keytag-dark',dark?'1':'0')}catch(e){}
+}
+function loadTheme(){
+  try{
+    if(localStorage.getItem('keytag-dark')==='1'){
+      document.body.classList.add('dark');
+      document.getElementById('themeToggle').textContent='☀️';
+    }
+  }catch(e){}
 }
 
-function applyFontSize() {
-  // Clamp the input
-  const input = document.getElementById('fontSize');
-  let val = parseInt(input.value) || DEFAULT_FONT_SIZE;
-  val = Math.min(MAX_FONT, Math.max(MIN_FONT, val));
-  input.value = val;
-
-  // Turn off auto-fit when manually setting size
-  autoFit = false;
-  document.getElementById('autoFitToggle').classList.remove('on');
-
-  applyStylesToAll();
+// ═══════════════════════════════════
+//  TOAST
+// ═══════════════════════════════════
+let toastTimer;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),1500);
 }
 
-// ─── AUTO-FIT ───
-function autoFitText(el) {
-  const parent = el.parentElement;
-  if (!parent) return;
-  const maxW = parent.clientWidth - 4;
-  const maxH = parent.clientHeight - 4;
-  if (maxW <= 0 || maxH <= 0) return;
+// ═══════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════
+function renderPages(){
+  const container=document.getElementById('pagesContainer');
+  container.innerHTML='';
+  const perPage=labelsPerPage(), totalPages=Math.ceil(labels.length/perPage);
 
-  // Start from user's font size and shrink down
-  let size = getFontSize();
-  el.style.fontSize = size + 'px';
-
-  while (size > MIN_FONT && (el.scrollWidth > maxW || el.scrollHeight > maxH)) {
-    size -= 0.5;
-    el.style.fontSize = size + 'px';
+  for(let p=0;p<totalPages;p++){
+    if(p>0){
+      const brk=document.createElement('div');brk.className='page-break';
+      brk.innerHTML=`<div class="page-break-line"></div><span class="page-break-label">✂ Page Break — Page ${p+1}</span><div class="page-break-line"></div>`;
+      container.appendChild(brk);
+    }
+    const page=document.createElement('div');page.className='a4-page';
+    const grid=document.createElement('div');grid.className='label-grid';
+    const start=p*perPage, end=Math.min(start+perPage,labels.length);
+    for(let i=start;i<end;i++) grid.appendChild(createCell(i));
+    page.appendChild(grid);container.appendChild(page);
   }
+  updateStatus();
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.label-text').forEach(el=>{
+      if(autoFit&&el.textContent.trim()) autoFitText(el);
+    });
+  });
 }
 
-function toggleAutoFit() {
-  autoFit = !autoFit;
-  document.getElementById('autoFitToggle').classList.toggle('on', autoFit);
-  applyStylesToAll();
+function createCell(idx){
+  const label=labels[idx];
+  const cell=document.createElement('div');
+  cell.className='label-cell';
+  cell.style.width=labelWidth+'mm';cell.style.height=labelHeight+'mm';
+
+  const text=document.createElement('div');
+  text.className='label-text';text.contentEditable=true;
+  text.setAttribute('data-placeholder','click to type');
+  text.setAttribute('data-idx',idx);
+  text.innerHTML=label.text||'';
+  text.style.fontFamily=globalFont;text.style.textAlign=globalAlign;
+  text.style.fontSize=getFontSize()+'px';
+
+  text.addEventListener('input',()=>{label.text=text.innerHTML;if(autoFit)autoFitText(text);updateFilledCount();});
+  text.addEventListener('focus',()=>{if(!label.text)text.innerHTML='';});
+  text.addEventListener('blur',()=>{snapshot();});
+  text.addEventListener('paste',e=>{e.preventDefault();document.execCommand('insertText',false,(e.clipboardData||window.clipboardData).getData('text/plain'));});
+
+  // Delete button
+  const del=document.createElement('button');del.className='cell-btn del-btn';del.innerHTML='×';del.title='Delete';
+  del.onclick=e=>{e.stopPropagation();snapshot();labels.splice(idx,1);renderPages();};
+
+  // Duplicate button
+  const dup=document.createElement('button');dup.className='cell-btn dup-btn';dup.innerHTML='⧉';dup.title='Duplicate';
+  dup.onclick=e=>{e.stopPropagation();duplicateLabel(idx);};
+
+  cell.appendChild(text);cell.appendChild(del);cell.appendChild(dup);
+  return cell;
 }
 
-// ─── FORMAT COMMANDS (per-cell or all) ───
-function formatCmd(cmd) {
-  const applyAll = document.getElementById('applyAllCheck').checked;
-
-  if (applyAll) {
-    // Apply to every cell
-    document.querySelectorAll('.label-text').forEach(el => {
-      selectAllText(el);
-      document.execCommand(cmd, false, null);
-      window.getSelection().removeAllRanges();
-    });
-    // Sync label data
-    document.querySelectorAll('.label-text').forEach((el, i) => {
-      if (labels[i]) labels[i].text = el.innerHTML;
-    });
+// ═══════════════════════════════════
+//  DUPLICATE
+// ═══════════════════════════════════
+function duplicateLabel(idx){
+  const srcText=labels[idx]?.text;
+  if(!srcText||!srcText.replace(/<[^>]*>/g,'').trim()){showToast('Nothing to duplicate');return;}
+  snapshot();
+  // Find next empty slot after idx
+  let target=-1;
+  for(let i=idx+1;i<labels.length;i++){
+    if(!labels[i].text||!labels[i].text.replace(/<[^>]*>/g,'').trim()){target=i;break;}
+  }
+  if(target===-1){
+    labels.push({id:nextId++,text:srcText});
   } else {
-    // Apply to currently focused cell only
-    document.execCommand(cmd, false, null);
-    // Sync the focused cell
-    const focused = document.querySelector('.label-text:focus');
-    if (focused) {
-      const idx = Array.from(document.querySelectorAll('.label-text')).indexOf(focused);
-      if (idx >= 0 && labels[idx]) labels[idx].text = focused.innerHTML;
-    }
+    labels[target].text=srcText;
   }
+  renderPages();
+  showToast('Label duplicated ⧉');
 }
 
-function selectAllText(el) {
-  const range = document.createRange();
-  range.selectNodeContents(el);
-  const sel = window.getSelection();
-  sel.removeAllRanges();
-  sel.addRange(range);
+// ═══════════════════════════════════
+//  EXPORT CSV
+// ═══════════════════════════════════
+function exportCSV(){
+  syncFromDOM();
+  const filled=labels.filter(l=>l.text&&l.text.replace(/<[^>]*>/g,'').trim());
+  if(!filled.length){showToast('No labels to export');return;}
+
+  let csv='Label Number,Text\n';
+  filled.forEach((l,i)=>{
+    const clean=l.text.replace(/<br\s*\/?>/gi,' / ').replace(/<[^>]*>/g,'').trim();
+    csv+=`${i+1},"${clean.replace(/"/g,'""')}"\n`;
+  });
+
+  const blob=new Blob([csv],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='keytag-labels.csv';a.click();
+  URL.revokeObjectURL(url);
+  showToast('CSV exported 📤');
 }
 
-// ─── GLOBAL FONT ───
-function applyGlobalFont() {
-  globalFont = document.getElementById('fontFamily').value;
-  applyStylesToAll();
+// ═══════════════════════════════════
+//  STATUS
+// ═══════════════════════════════════
+function updateStatus(){
+  const c=colCount(),r=rowCount(),pp=c*r,pages=Math.ceil(labels.length/pp);
+  document.getElementById('statPerPage').textContent=pp;
+  document.getElementById('statCols').textContent=c;
+  document.getElementById('statRows').textContent=r;
+  document.getElementById('statTotal').textContent=labels.length;
+  document.getElementById('statPages').textContent=pages;
+  updateFilledCount();
+}
+function updateFilledCount(){
+  const n=labels.filter(l=>l.text&&l.text.replace(/<[^>]*>/g,'').trim()).length;
+  document.getElementById('statFilled').textContent=n;
 }
 
-// ─── ALIGNMENT ───
-function applyAlign(align) {
-  globalAlign = align;
-  applyStylesToAll();
+// ═══════════════════════════════════
+//  FONT
+// ═══════════════════════════════════
+function getFontSize(){const v=parseInt(document.getElementById('fontSize').value)||DEFAULT_SIZE;return Math.min(MAX_FONT,Math.max(MIN_FONT,v));}
+function applyFontSize(){const inp=document.getElementById('fontSize');let v=parseInt(inp.value)||DEFAULT_SIZE;inp.value=Math.min(MAX_FONT,Math.max(MIN_FONT,v));autoFit=false;document.getElementById('autoFitToggle').classList.remove('on');applyStylesToAll();}
+function autoFitText(el){const p=el.parentElement;if(!p)return;const mw=p.clientWidth-4,mh=p.clientHeight-4;if(mw<=0||mh<=0)return;let s=getFontSize();el.style.fontSize=s+'px';while(s>MIN_FONT&&(el.scrollWidth>mw||el.scrollHeight>mh)){s-=.5;el.style.fontSize=s+'px';}}
+function toggleAutoFit(){autoFit=!autoFit;document.getElementById('autoFitToggle').classList.toggle('on',autoFit);applyStylesToAll();}
+function formatCmd(cmd){
+  if(document.getElementById('applyAllCheck').checked){
+    snapshot();
+    document.querySelectorAll('.label-text').forEach(el=>{const r=document.createRange();r.selectNodeContents(el);const s=window.getSelection();s.removeAllRanges();s.addRange(r);document.execCommand(cmd,false,null);s.removeAllRanges();});
+    syncFromDOM();
+  }else{document.execCommand(cmd,false,null);const f=document.querySelector('.label-text:focus');if(f){const i=parseInt(f.getAttribute('data-idx'));if(!isNaN(i)&&labels[i])labels[i].text=f.innerHTML;}}
+}
+function applyGlobalFont(){globalFont=document.getElementById('fontFamily').value;applyStylesToAll();}
+function applyAlign(a){globalAlign=a;applyStylesToAll();}
+function applyStylesToAll(){const s=getFontSize();document.querySelectorAll('.label-text').forEach(el=>{el.style.fontFamily=globalFont;el.style.textAlign=globalAlign;el.style.fontSize=s+'px';if(autoFit&&el.textContent.trim())autoFitText(el);});}
+
+// ═══════════════════════════════════
+//  LABELS
+// ═══════════════════════════════════
+function addLabels(n){snapshot();for(let i=0;i<n;i++)labels.push({id:nextId++,text:''});renderPages();}
+function clearAll(){if(!confirm('Clear all labels?'))return;snapshot();labels=[];const n=labelsPerPage();for(let i=0;i<n;i++)labels.push({id:nextId++,text:''});renderPages();}
+function changeSize(){const sel=document.getElementById('sizePreset'),cust=document.getElementById('customSize');if(sel.value==='custom'){cust.style.display='inline-flex';return;}cust.style.display='none';const[w,h]=sel.value.split(',').map(Number);labelWidth=w;labelHeight=h;labels=[];nextId=0;const n=labelsPerPage();for(let i=0;i<n;i++)labels.push({id:nextId++,text:''});renderPages();}
+function applyCustomSize(){labelWidth=parseInt(document.getElementById('customW').value)||43;labelHeight=parseInt(document.getElementById('customH').value)||18;labels=[];nextId=0;const n=labelsPerPage();for(let i=0;i<n;i++)labels.push({id:nextId++,text:''});renderPages();}
+
+// ═══════════════════════════════════
+//  BULK
+// ═══════════════════════════════════
+function openBulkModal(){document.getElementById('bulkModal').classList.add('active');document.getElementById('bulkText').focus();}
+function closeBulkModal(){document.getElementById('bulkModal').classList.remove('active');}
+function applyBulk(){
+  const raw=document.getElementById('bulkText').value.trim();if(!raw)return;
+  snapshot();
+  const lines=raw.split('\n').filter(l=>l.trim());
+  let si=labels.findIndex(l=>!l.text||!l.text.replace(/<[^>]*>/g,'').trim());
+  if(si===-1)si=labels.length;
+  lines.forEach((line,i)=>{
+    const fmt=line.trim().replace(/\s*[\/|]\s*/g,'<br>');
+    const ti=si+i;
+    if(ti<labels.length)labels[ti].text=fmt;else labels.push({id:nextId++,text:fmt});
+  });
+  let empty=0;for(let i=labels.length-1;i>=0;i--){if(!labels[i].text||!labels[i].text.replace(/<[^>]*>/g,'').trim())empty++;else break;}
+  while(empty<10){labels.push({id:nextId++,text:''});empty++;}
+  document.getElementById('bulkText').value='';closeBulkModal();renderPages();
 }
 
-// ─── APPLY STYLES TO ALL ───
-function applyStylesToAll() {
-  const size = getFontSize();
-  document.querySelectorAll('.label-text').forEach(el => {
-    el.style.fontFamily = globalFont;
-    el.style.textAlign = globalAlign;
-    el.style.fontSize = size + 'px';
-    if (autoFit && el.textContent.trim()) {
-      autoFitText(el);
-    }
+// ═══════════════════════════════════
+//  PRINT
+// ═══════════════════════════════════
+function printLabels(){
+  syncFromDOM();
+  const pg=document.getElementById('printGrid');pg.innerHTML='';
+  const filled=labels.filter(l=>l.text&&l.text.replace(/<[^>]*>/g,'').trim());
+  if(!filled.length){alert('No labels to print.');return;}
+  const pp=labelsPerPage();
+  filled.forEach((l,i)=>{
+    if(i>0&&i%pp===0){const b=document.createElement('div');b.className='print-page-break';b.style.width='100%';pg.appendChild(b);}
+    const c=document.createElement('div');c.className='print-cell';c.style.width=labelWidth+'mm';c.style.height=labelHeight+'mm';c.style.fontFamily=globalFont;c.style.textAlign=globalAlign;c.innerHTML=l.text;c.style.fontSize=getFontSize()+'px';pg.appendChild(c);
+  });
+  requestAnimationFrame(()=>{
+    if(autoFit)pg.querySelectorAll('.print-cell').forEach(c=>{let s=getFontSize();c.style.fontSize=s+'px';while(s>MIN_FONT&&(c.scrollWidth>c.clientWidth||c.scrollHeight>c.clientHeight)){s-=.5;c.style.fontSize=s+'px';}});
+    setTimeout(()=>window.print(),100);
   });
 }
 
-// ─── LABEL ACTIONS ───
-function addLabels(n) {
-  for (let i = 0; i < n; i++) {
-    labels.push({ id: nextId++, text: '' });
-  }
-  renderGrid();
-}
+function scrollToInfo(){document.getElementById('infoSection').scrollIntoView({behavior:'smooth'});}
 
-function clearAll() {
-  if (!confirm('Clear all labels?')) return;
-  labels = [];
-  renderGrid();
-}
-
-// ─── SIZE PRESETS ───
-function changeSize() {
-  const sel = document.getElementById('sizePreset');
-  const custom = document.getElementById('customSize');
-  if (sel.value === 'custom') {
-    custom.style.display = 'inline-flex';
-    return;
-  }
-  custom.style.display = 'none';
-  const [w, h] = sel.value.split(',').map(Number);
-  labelWidth = w;
-  labelHeight = h;
-  renderGrid();
-}
-
-function applyCustomSize() {
-  labelWidth = parseInt(document.getElementById('customW').value) || 43;
-  labelHeight = parseInt(document.getElementById('customH').value) || 18;
-  renderGrid();
-}
-
-// ─── BULK INPUT ───
-function openBulkModal() {
-  document.getElementById('bulkModal').classList.add('active');
-  document.getElementById('bulkText').focus();
-}
-function closeBulkModal() {
-  document.getElementById('bulkModal').classList.remove('active');
-}
-function applyBulk() {
-  const raw = document.getElementById('bulkText').value.trim();
-  if (!raw) return;
-  const lines = raw.split('\n').filter(l => l.trim());
-
-  // Remove trailing empty labels to make room, then append
-  while (labels.length > 0 && !labels[labels.length - 1].text) {
-    labels.pop();
-  }
-
-  lines.forEach(line => {
-    const formatted = line.trim().replace(/\s*[\/|]\s*/g, '<br>');
-    labels.push({ id: nextId++, text: formatted });
-  });
-
-  // Add some blank ones after for future use
-  addLabels(10);
-
-  document.getElementById('bulkText').value = '';
-  closeBulkModal();
-  // renderGrid already called by addLabels
-}
-
-// ─── PRINT ───
-function printLabels() {
-  const printGrid = document.getElementById('printGrid');
-  printGrid.innerHTML = '';
-
-  // Grab current state from DOM (includes per-cell formatting)
-  const cells = document.querySelectorAll('.label-text');
-  const filledCells = Array.from(cells).filter(c => c.textContent.trim());
-
-  if (filledCells.length === 0) {
-    alert('No labels to print. Type something in the labels first.');
-    return;
-  }
-
-  filledCells.forEach(srcCell => {
-    const cell = document.createElement('div');
-    cell.className = 'print-cell';
-    cell.style.width = labelWidth + 'mm';
-    cell.style.height = labelHeight + 'mm';
-    cell.style.fontFamily = globalFont;
-    cell.style.textAlign = globalAlign;
-    cell.innerHTML = srcCell.innerHTML;
-
-    // Copy computed styles for per-cell formatting
-    const size = getFontSize();
-    cell.style.fontSize = size + 'px';
-    printGrid.appendChild(cell);
-  });
-
-  requestAnimationFrame(() => {
-    if (autoFit) {
-      printGrid.querySelectorAll('.print-cell').forEach(cell => {
-        let size = getFontSize();
-        cell.style.fontSize = size + 'px';
-        while (size > MIN_FONT && (cell.scrollWidth > cell.clientWidth || cell.scrollHeight > cell.clientHeight)) {
-          size -= 0.5;
-          cell.style.fontSize = size + 'px';
-        }
-      });
-    }
-    setTimeout(() => window.print(), 100);
-  });
-}
-
-// ─── NAV ───
-function scrollToInfo() {
-  document.getElementById('infoSection').scrollIntoView({ behavior: 'smooth' });
-}
-
-// ─── KEYBOARD ───
-document.addEventListener('keydown', (e) => {
-  if (e.ctrlKey && e.key === 'p') { e.preventDefault(); printLabels(); }
+// ═══════════════════════════════════
+//  KEYBOARD
+// ═══════════════════════════════════
+document.addEventListener('keydown',e=>{
+  if(e.ctrlKey&&e.key==='p'){e.preventDefault();printLabels();}
+  if(e.ctrlKey&&e.key==='z'&&!e.shiftKey){e.preventDefault();undo();}
+  if(e.ctrlKey&&(e.key==='y'||(e.key==='z'&&e.shiftKey))){e.preventDefault();redo();}
 });
 
-// Go
-init();
+// ═══════════════════════════════════
+//  INIT
+// ═══════════════════════════════════
+loadTheme();
+const n=labelsPerPage();
+for(let i=0;i<n;i++) labels.push({id:nextId++,text:''});
+lastSnapshot=JSON.stringify(labels.map(l=>l.text||''));
+renderPages();
 </script>
 </body>
 </html>
