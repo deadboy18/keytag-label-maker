@@ -2,10 +2,7 @@
 
 > A free, browser-based tool to create **print-ready paper inserts** for plastic key identification tags. Type your labels, print at 100% scale, cut along the guides, and slide them in.
 
-**[🔗 Try it live →](https://yourusername.github.io/keytag-label-maker/)**
-
-![Key Tag Label Maker Screenshot](images/screenshot.png)
-<!-- 👆 TODO: Add a screenshot of the web app in action -->
+**[🔗 Try it live →](https://deadboy18.github.io/keytag-label-maker/)**
 
 ---
 
@@ -13,15 +10,18 @@
 
 These are the **colored plastic key tags** (also called key fobs, key ID tags, or key labels) commonly used by hotels, offices, building management, and facility teams to organize and identify keys.
 
-| | |
-|---|---|
-| ![Key tags in different colors](images/keytag-colors.jpg) | ![Key tag on a key](images/keytag-on-key.jpg) |
-| *Available in many colors — red, blue, green, yellow, black, etc.* | *Each tag has a transparent window to slide in a paper label* |
-
-<!-- 👆 TODO: Replace with your own photos. Suggested photos:
-  - images/keytag-colors.jpg    → Photo of multiple colored key tags
-  - images/keytag-on-key.jpg    → Photo of a key tag attached to an actual key
--->
+<table>
+<tr>
+<td width="50%">
+<img src="https://github.com/user-attachments/assets/5d23bdfc-107f-419a-a861-c834eb0133a4" alt="Key tags in different colors" width="100%">
+<br><em>Available in many colors — red, blue, green, yellow, black, etc.</em>
+</td>
+<td width="50%">
+<img src="https://github.com/user-attachments/assets/1f99df4f-d00e-4c2e-a490-e04d8dd1ba91" alt="Key tag on a key" width="100%">
+<br><em>Each tag has a transparent window to slide in a paper label</em>
+</td>
+</tr>
+</table>
 
 ### The Problem
 
@@ -31,9 +31,9 @@ Writing labels by hand is messy and inconsistent. Ordering custom printed insert
 |---|---|
 | ![Handwritten label](images/before-handwritten.jpg) | ![Printed label](images/after-printed.jpg) |
 
-<!-- 👆 TODO: Replace with your own before/after photos:
-  - images/before-handwritten.jpg  → Photo of a handwritten key tag label
-  - images/after-printed.jpg       → Photo of a printed key tag label (like your GM ROOM one)
+<!-- 👆 TODO: Add your before/after photos:
+  - images/before-handwritten.jpg  → The "L-1-6 Meeting Room" handwritten tag
+  - images/after-printed.jpg       → The "GM ROOM" printed tag on the blue key tag
 -->
 
 ---
@@ -41,6 +41,7 @@ Writing labels by hand is messy and inconsistent. Ordering custom printed insert
 ## ✨ Features
 
 - **🔤 Auto-fit text** — Font size dynamically shrinks to fit the label box
+- **🔠 Font & formatting** — Choose font family, bold, italic, underline, and text alignment
 - **📄 A4 print-ready** — Designed for A4 paper at 100% scale
 - **📏 Multiple tag sizes** — Standard, small, and large presets + custom dimensions
 - **📋 Bulk input** — Paste a list to create many labels at once
@@ -53,12 +54,13 @@ Writing labels by hand is messy and inconsistent. Ordering custom printed insert
 
 ## 📐 Key Tag Sizing Reference
 
-> **Measure your own tags first!** Sizes vary between manufacturers. The dimensions below are based on the most common tags available on Amazon/Shopee/AliExpress.
+> **Measure your own tags first!** Sizes vary between manufacturers. The dimensions below are based on the most common tags available on Amazon / Shopee / AliExpress.
 
 ### Standard Tag (Most Common)
 
-![Standard tag dimensions](images/keytag-dimensions.jpg)
-<!-- 👆 TODO: Add your dimension photo (the green tag with ruler measurements) -->
+<p align="center">
+<img src="https://github.com/user-attachments/assets/05b6a5ff-70b8-4c83-af86-0f4dc87b8457" alt="Standard tag dimensions" width="500">
+</p>
 
 ```
         ┌─────────────────────────────────────┐
@@ -96,8 +98,9 @@ Writing labels by hand is messy and inconsistent. Ordering custom printed insert
 
 If your tags don't match these sizes, measure the **paper insert** that came inside the tag:
 
-![Measuring with ruler](images/keytag-measured.jpg)
-<!-- 👆 TODO: Add your photo of measuring the paper insert with a ruler -->
+<p align="center">
+<img src="https://github.com/user-attachments/assets/bab494fc-cb23-45ec-a162-705c0e29bd15" alt="Measuring key tag insert with ruler" width="350">
+</p>
 
 1. Remove the existing paper from inside the tag
 2. Measure the **width** (longer side) in cm
@@ -110,7 +113,13 @@ If your tags don't match these sizes, measure the **paper insert** that came ins
 
 ### Step 1: Type Your Labels
 
-Open the app and click on any box to type. Text auto-sizes to fit.
+Open the [live app](https://deadboy18.github.io/keytag-label-maker/) and click on any box to type. Text auto-sizes to fit.
+
+**Formatting options:**
+- Pick a **font** from the dropdown (Arial, Helvetica, Verdana, etc.)
+- Toggle **Bold**, *Italic*, or <u>Underline</u>
+- Set a **manual font size** or use **AUTO-FIT**
+- Change text **alignment** (left, center, right)
 
 Use **Bulk Input** to paste many labels at once:
 ```
@@ -133,46 +142,34 @@ Use `/` or `|` to add a second line within a label.
 
 ### Step 3: Cut & Insert
 
-![Cutting and inserting labels](images/cut-and-insert.jpg)
-<!-- 👆 TODO: Add a photo showing cutting the labels and sliding into the tag -->
-
 1. Cut along the dashed lines
 2. Slide the paper strip into the tag slot
 3. The transparent film holds it in place
 
-### Result
-
-![Final result on key](images/final-result.jpg)
-<!-- 👆 TODO: Add your photo of the finished key tag on a key (like the GM ROOM photo) -->
+![Screenshot of app](images/screenshot.png)
+<!-- 👆 TODO: Add a screenshot of the web app with some filled labels -->
 
 ---
 
-## 🚀 Deploy to GitHub Pages
+## 🚀 Deploy Your Own
 
-1. **Fork** this repository (or click "Use this template")
+### GitHub Pages (easiest)
+
+1. **Fork** this repository
 2. Go to **Settings → Pages**
 3. Set source to **Deploy from a branch** → `main` → `/ (root)`
-4. Wait ~1 minute, your site will be live at:
-   ```
-   https://yourusername.github.io/keytag-label-maker/
-   ```
+4. Your site will be live at `https://yourusername.github.io/keytag-label-maker/`
 
 ### Run Locally
 
 No build tools needed. Just open the file:
 
 ```bash
-# Clone
-git clone https://github.com/yourusername/keytag-label-maker.git
-
-# Open (macOS)
-open keytag-label-maker/index.html
-
-# Open (Linux)
-xdg-open keytag-label-maker/index.html
-
-# Open (Windows)
-start keytag-label-maker/index.html
+git clone https://github.com/deadboy18/keytag-label-maker.git
+cd keytag-label-maker
+open index.html        # macOS
+xdg-open index.html    # Linux
+start index.html       # Windows
 ```
 
 ---
@@ -185,16 +182,17 @@ keytag-label-maker/
 ├── README.md           ← You're reading this
 ├── LICENSE             ← MIT license
 └── images/             ← Reference photos
-    ├── screenshot.png
-    ├── keytag-colors.jpg
-    ├── keytag-on-key.jpg
-    ├── keytag-dimensions.jpg
-    ├── keytag-measured.jpg
-    ├── before-handwritten.jpg
-    ├── after-printed.jpg
-    ├── cut-and-insert.jpg
-    └── final-result.jpg
 ```
+
+---
+
+## 💡 Use Cases
+
+- 🏨 **Hotels** — Room keys, storage rooms, service areas
+- 🏢 **Offices** — Server rooms, meeting rooms, utility closets
+- 🏗️ **Building Management** — Pump rooms, fire panels, electrical rooms
+- 🏠 **Home** — Spare keys, garage, shed, mailbox
+- 🏫 **Schools** — Classrooms, labs, equipment storage
 
 ---
 
@@ -209,26 +207,6 @@ Contributions are welcome! Some ideas:
 - [ ] Multi-page support for large batches
 - [ ] CSV import/export
 - [ ] Multi-language UI
-
----
-
-## 📸 Image Checklist
-
-Before publishing, add your own photos to the `images/` folder. Here's what to capture:
-
-| File | What to Photograph |
-|:---|:---|
-| `screenshot.png` | Screenshot of the web app with some labels filled in |
-| `keytag-colors.jpg` | A pile or fan of different colored key tags |
-| `keytag-on-key.jpg` | A labeled key tag attached to a real key |
-| `keytag-dimensions.jpg` | Tag next to a ruler showing measurements |
-| `keytag-measured.jpg` | Paper insert being measured with a ruler |
-| `before-handwritten.jpg` | A messy handwritten label in a tag |
-| `after-printed.jpg` | A clean printed label in a tag |
-| `cut-and-insert.jpg` | Labels being cut from the printed sheet |
-| `final-result.jpg` | The finished product — labeled tag on a keyring |
-
-> 💡 **Tip:** You already have most of these photos from your testing! Just rename and drop them in.
 
 ---
 
