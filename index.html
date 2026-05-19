@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Key Tag Label Maker</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f3f0;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --text-muted: #777;
+  --accent: #e85d2a;
+  --accent-light: #fff0eb;
+  --border: #ddd;
+  --border-dark: #444;
+  --grid-bg: #fafafa;
+  --tag-blue: #4a7fb5;
+  --tag-green: #4caf50;
+  --tag-yellow: #ffc107;
+  --tag-red: #e53935;
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* ─── HEADER ─── */
+.header {
+  background: var(--text);
+  color: white;
+  padding: 2rem 0;
+}
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.logo-icon {
+  width: 40px; height: 40px;
+  background: var(--accent);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+}
+.logo h1 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.logo span {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 400;
+  display: block;
+}
+.header-actions {
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+}
+.btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: white;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.btn:hover { background: rgba(255,255,255,0.1); }
+.btn-accent {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.btn-accent:hover { background: #d04e1e; }
+
+/* ─── MAIN LAYOUT ─── */
+.main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* ─── TOOLBAR ─── */
+.toolbar {
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.toolbar-group {
+  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+}
+.toolbar label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.toolbar select, .toolbar input[type="number"] {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  background: var(--grid-bg);
+}
+.toolbar input[type="number"] { width: 60px; }
+.btn-sm {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-sm:hover { background: var(--grid-bg); border-color: var(--border-dark); }
+.btn-sm.active { background: var(--text); color: white; border-color: var(--text); }
+
+/* ─── FORMAT TOOLBAR ─── */
+.format-bar {
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 0.7rem 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.format-bar .divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+  margin: 0 0.25rem;
+}
+.fmt-btn {
+  width: 32px; height: 32px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  color: var(--text);
+}
+.fmt-btn:hover { background: var(--grid-bg); border-color: var(--border-dark); }
+.fmt-btn.on { background: var(--text); color: white; border-color: var(--text); }
+.fmt-btn .bold-icon { font-weight: 800; }
+.fmt-btn .italic-icon { font-style: italic; }
+.fmt-btn .underline-icon { text-decoration: underline; }
+.format-bar select {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  background: var(--grid-bg);
+  cursor: pointer;
+}
+.format-bar .size-input {
+  width: 50px;
+  padding: 0.35rem 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  text-align: center;
+  background: var(--grid-bg);
+}
+.auto-fit-badge {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s;
+}
+.auto-fit-badge.on { background: var(--accent); color: white; }
+.auto-fit-badge:hover { border-color: var(--accent); }
+
+/* ─── LABEL GRID (A4) ─── */
+.a4-container {
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+.a4-page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 5mm;
+  background: white;
+  border: 1px solid var(--border);
+  position: relative;
+}
+.label-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
+.label-cell {
+  width: 43mm;   /* 4.3cm */
+  height: 18mm;  /* 1.8cm */
+  border: 1px dashed #999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: text;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.label-cell:hover {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+.label-cell:focus-within {
+  border-color: var(--accent);
+  border-style: solid;
+  background: #fff;
+  z-index: 2;
+  box-shadow: 0 0 0 2px rgba(232,93,42,0.2);
+}
+.label-text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1mm;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  word-break: break-word;
+  outline: none;
+  cursor: text;
+}
+.label-text:empty::before {
+  content: attr(data-placeholder);
+  color: #ccc;
+  font-weight: 400;
+  font-size: 8px;
+}
+.label-cell .delete-btn {
+  position: absolute;
+  top: 0; right: 0;
+  width: 14px; height: 14px;
+  background: #e53935;
+  color: white;
+  border: none;
+  font-size: 9px;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 0 0 3px;
+}
+.label-cell:hover .delete-btn { display: flex; }
+
+/* ─── BULK INPUT MODAL ─── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 550px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+.modal h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.modal p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+.modal textarea {
+  width: 100%;
+  height: 200px;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+.modal-actions {
+  display: flex; gap: 0.5rem; justify-content: flex-end;
+}
+.modal .btn-sm { padding: 0.5rem 1.2rem; }
+
+/* ─── SIZING INFO ─── */
+.info-section {
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+.info-section h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.info-card {
+  background: var(--grid-bg);
+  border-radius: 8px;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+}
+.info-card h3 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.info-row:last-child { border: none; }
+.info-row span:first-child { color: var(--text-muted); }
+.info-row span:last-child { font-weight: 600; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+
+.tag-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1.5rem;
+  flex-wrap: wrap;
+}
+.tag-visual {
+  width: 160px;
+  height: 68px;
+  background: linear-gradient(135deg, #4a90d9, #357abd);
+  border-radius: 30px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(74,144,217,0.3);
+}
+.tag-window {
+  width: 100px;
+  height: 40px;
+  background: white;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #333;
+}
+.tag-hole {
+  width: 14px; height: 14px;
+  border: 3px solid rgba(255,255,255,0.6);
+  border-radius: 50%;
+  position: absolute;
+}
+.tag-hole-top { top: 8px; left: 12px; }
+.tag-hole-bottom { bottom: 8px; right: 12px; }
+.dim-label {
+  position: absolute;
+  font-size: 9px;
+  font-family: 'JetBrains Mono', monospace;
+  color: white;
+  background: rgba(0,0,0,0.5);
+  padding: 1px 4px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* ─── FOOTER ─── */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+.footer a { color: var(--accent); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 800px) {
+  .a4-page { width: 100%; min-height: auto; transform-origin: top left; }
+  .main { padding: 1rem; }
+  .toolbar { flex-direction: column; align-items: stretch; }
+}
+
+/* ─── PRINT STYLES ─── */
+@media print {
+  @page { size: A4 portrait; margin: 5mm; }
+  body { background: white; }
+  .header, .toolbar, .info-section, .footer,
+  .a4-container, .modal-overlay,
+  .label-cell .delete-btn,
+  .no-print { display: none !important; }
+
+  .print-page {
+    display: block !important;
+    width: 200mm;
+    padding: 0;
+    margin: 0;
+  }
+  .print-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .print-cell {
+    width: 43mm;
+    height: 18mm;
+    border: 1px dashed #999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    overflow: hidden;
+    padding: 1mm;
+    word-break: break-word;
+    page-break-inside: avoid;
+  }
+}
+.print-page { display: none; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">🏷️</div>
+      <div>
+        <h1>Key Tag Label Maker</h1>
+        <span>Print-ready labels for plastic key tags</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn" onclick="scrollToInfo()">📐 Sizing Info</button>
+      <button class="btn" onclick="openBulkModal()">📋 Bulk Input</button>
+      <button class="btn btn-accent" onclick="printLabels()">🖨️ Print / PDF</button>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOOLBAR -->
+  <div class="toolbar no-print">
+    <div class="toolbar-group">
+      <label>Tag size:</label>
+      <select id="sizePreset" onchange="changeSize()">
+        <option value="43,18" selected>Standard (4.3 × 1.8 cm)</option>
+        <option value="30,19">Small (3.0 × 1.9 cm)</option>
+        <option value="50,22">Large (5.0 × 2.2 cm)</option>
+        <option value="custom">Custom…</option>
+      </select>
+      <span id="customSize" style="display:none;">
+        <input type="number" id="customW" value="43" min="10" max="80" step="1" placeholder="W mm"> ×
+        <input type="number" id="customH" value="18" min="10" max="40" step="1" placeholder="H mm">
+        <button class="btn-sm" onclick="applyCustomSize()">Apply</button>
+      </span>
+    </div>
+    <div class="toolbar-group">
+      <label>Labels:</label>
+      <button class="btn-sm" onclick="addLabels(10)">+ 10</button>
+      <button class="btn-sm" onclick="addLabels(20)">+ 20</button>
+      <button class="btn-sm" onclick="clearAll()">Clear All</button>
+    </div>
+  </div>
+
+  <!-- FORMAT TOOLBAR -->
+  <div class="format-bar no-print">
+    <label style="font-size:0.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Format:</label>
+    <select id="fontFamily" onchange="applyGlobalFont()">
+      <option value="Arial, sans-serif">Arial</option>
+      <option value="'DM Sans', sans-serif">DM Sans</option>
+      <option value="'Helvetica Neue', Helvetica, sans-serif">Helvetica</option>
+      <option value="'Segoe UI', sans-serif">Segoe UI</option>
+      <option value="Verdana, sans-serif">Verdana</option>
+      <option value="Tahoma, sans-serif">Tahoma</option>
+      <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+      <option value="Georgia, serif">Georgia</option>
+      <option value="'Times New Roman', serif">Times New Roman</option>
+      <option value="'Courier New', monospace">Courier New</option>
+      <option value="'JetBrains Mono', monospace">JetBrains Mono</option>
+    </select>
+
+    <div class="divider"></div>
+
+    <button class="fmt-btn" id="btnBold" onclick="toggleFormat('bold')" title="Bold (Ctrl+B)">
+      <span class="bold-icon">B</span>
+    </button>
+    <button class="fmt-btn" id="btnItalic" onclick="toggleFormat('italic')" title="Italic (Ctrl+I)">
+      <span class="italic-icon">I</span>
+    </button>
+    <button class="fmt-btn" id="btnUnderline" onclick="toggleFormat('underline')" title="Underline (Ctrl+U)">
+      <span class="underline-icon">U</span>
+    </button>
+
+    <div class="divider"></div>
+
+    <label style="font-size:0.75rem;color:var(--text-muted);">Size:</label>
+    <input type="number" class="size-input" id="manualSize" min="5" max="48" placeholder="Auto" title="Leave empty for auto-fit" onchange="applyManualSize()">
+    <button class="auto-fit-badge on" id="autoFitToggle" onclick="toggleAutoFit()" title="Toggle auto-fit sizing">AUTO-FIT</button>
+
+    <div class="divider"></div>
+
+    <button class="fmt-btn" onclick="applyAlign('left')" title="Align left" style="font-size:0.7rem;">◧</button>
+    <button class="fmt-btn" onclick="applyAlign('center')" title="Align center" style="font-size:0.7rem;">◫</button>
+    <button class="fmt-btn" onclick="applyAlign('right')" title="Align right" style="font-size:0.7rem;">◨</button>
+  </div>
+
+  <!-- A4 LABEL GRID -->
+  <div class="a4-container no-print">
+    <div class="a4-page" id="a4Page">
+      <div class="label-grid" id="labelGrid"></div>
+    </div>
+  </div>
+
+  <!-- PRINT-ONLY PAGE -->
+  <div class="print-page" id="printPage">
+    <div class="print-grid" id="printGrid"></div>
+  </div>
+
+  <!-- SIZING INFO -->
+  <div class="info-section" id="infoSection">
+    <h2>📐 Key Tag Sizing Reference</h2>
+
+    <div class="tag-diagram">
+      <div class="tag-visual">
+        <div class="tag-hole tag-hole-top"></div>
+        <div class="tag-window">GM ROOM</div>
+        <div class="tag-hole tag-hole-bottom"></div>
+        <div class="dim-label" style="top:-18px;left:50%;transform:translateX(-50%);">4.3 – 5.0 cm</div>
+        <div class="dim-label" style="right:-28px;top:50%;transform:translateY(-50%) rotate(90deg);">1.8 – 2.2 cm</div>
+      </div>
+      <div style="font-size:0.85rem;max-width:280px;">
+        <p style="margin-bottom:0.5rem;font-weight:600;">How it works</p>
+        <p style="color:var(--text-muted);font-size:0.8rem;">Type your label text, print at 100% scale, cut along the dashed lines, and slide the paper into your key tag's transparent window.</p>
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>Standard Tag (Most Common)</h3>
+        <div class="info-row"><span>Tag body</span><span>5.0 × 2.2 cm</span></div>
+        <div class="info-row"><span>Visible window</span><span>2.8 × 1.4 cm</span></div>
+        <div class="info-row"><span>Paper insert</span><span>4.3 × 1.8 cm</span></div>
+        <div class="info-row"><span>Key ring</span><span>∅ 1.7 cm</span></div>
+        <div class="info-row"><span>Material</span><span>PP / PE plastic</span></div>
+      </div>
+      <div class="info-card">
+        <h3>Small Tag</h3>
+        <div class="info-row"><span>Tag body</span><span>4.8 × 2.2 cm</span></div>
+        <div class="info-row"><span>Visible window</span><span>2.9 × 1.4 cm</span></div>
+        <div class="info-row"><span>Paper insert</span><span>3.0 × 1.9 cm</span></div>
+        <div class="info-row"><span>Key ring</span><span>∅ 1.7 cm</span></div>
+        <div class="info-row"><span>Material</span><span>PP plastic</span></div>
+      </div>
+      <div class="info-card">
+        <h3>Large Tag</h3>
+        <div class="info-row"><span>Tag body</span><span>6.4 × 2.8 cm</span></div>
+        <div class="info-row"><span>Visible window</span><span>3.6 × 1.8 cm</span></div>
+        <div class="info-row"><span>Paper insert</span><span>5.0 × 2.2 cm</span></div>
+        <div class="info-row"><span>Key ring</span><span>∅ 2.0 cm</span></div>
+        <div class="info-row"><span>Material</span><span>PE plastic</span></div>
+      </div>
+      <div class="info-card">
+        <h3>Print Tips</h3>
+        <div class="info-row"><span>Paper size</span><span>A4</span></div>
+        <div class="info-row"><span>Scale</span><span>100% (actual)</span></div>
+        <div class="info-row"><span>Orientation</span><span>Portrait</span></div>
+        <div class="info-row"><span>Margins</span><span>5 mm minimum</span></div>
+        <div class="info-row"><span>PDF export</span><span>Print → Save as PDF</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BULK INPUT MODAL -->
+<div class="modal-overlay" id="bulkModal">
+  <div class="modal">
+    <h2>Bulk Input</h2>
+    <p>Paste one label per line. Use <code>/</code> or <code>|</code> to separate lines within a label.<br>
+    Example: <code>SERVER ROOM / L1-3</code> becomes two lines on the tag.</p>
+    <textarea id="bulkText" placeholder="GM ROOM
+SERVER ROOM / L1-3
+MEETING ROOM | B-13
+CANTEEN (1)
+FIRE PANEL"></textarea>
+    <div class="modal-actions">
+      <button class="btn-sm" onclick="closeBulkModal()">Cancel</button>
+      <button class="btn-sm active" onclick="applyBulk()">Add Labels</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer no-print">
+  <p>Key Tag Label Maker — Free &amp; open source. Print at 100% scale, cut, and slide into your key tags.</p>
+  <p style="margin-top:0.25rem;">
+    <a href="https://github.com" target="_blank">GitHub</a> · Made for building engineers &amp; facility managers
+  </p>
+</div>
+
+<script>
+// ─── STATE ───
+let labelWidth = 43;  // mm
+let labelHeight = 18; // mm
+let labels = [];
+let nextId = 0;
+
+// Format state
+let globalFont = "Arial, sans-serif";
+let globalBold = false;
+let globalItalic = false;
+let globalUnderline = false;
+let globalAlign = 'center';
+let autoFit = true;
+let manualFontSize = null;
+
+// ─── INIT ───
+function init() {
+  addLabels(60);
+  updateFormatButtons();
+}
+
+// ─── FORMAT FUNCTIONS ───
+function toggleFormat(type) {
+  if (type === 'bold') globalBold = !globalBold;
+  if (type === 'italic') globalItalic = !globalItalic;
+  if (type === 'underline') globalUnderline = !globalUnderline;
+  updateFormatButtons();
+  applyStylesToAll();
+}
+
+function applyGlobalFont() {
+  globalFont = document.getElementById('fontFamily').value;
+  applyStylesToAll();
+}
+
+function applyManualSize() {
+  const val = document.getElementById('manualSize').value;
+  if (val && parseInt(val) > 0) {
+    manualFontSize = parseInt(val);
+    autoFit = false;
+    document.getElementById('autoFitToggle').classList.remove('on');
+  }
+  applyStylesToAll();
+}
+
+function toggleAutoFit() {
+  autoFit = !autoFit;
+  document.getElementById('autoFitToggle').classList.toggle('on', autoFit);
+  if (autoFit) {
+    manualFontSize = null;
+    document.getElementById('manualSize').value = '';
+  }
+  applyStylesToAll();
+}
+
+function applyAlign(align) {
+  globalAlign = align;
+  applyStylesToAll();
+}
+
+function updateFormatButtons() {
+  document.getElementById('btnBold').classList.toggle('on', globalBold);
+  document.getElementById('btnItalic').classList.toggle('on', globalItalic);
+  document.getElementById('btnUnderline').classList.toggle('on', globalUnderline);
+}
+
+function applyStylesToAll() {
+  document.querySelectorAll('.label-text').forEach(el => {
+    applyStylesToElement(el);
+  });
+}
+
+function applyStylesToElement(el) {
+  el.style.fontFamily = globalFont;
+  el.style.fontWeight = globalBold ? '700' : '600';
+  el.style.fontStyle = globalItalic ? 'italic' : 'normal';
+  el.style.textDecoration = globalUnderline ? 'underline' : 'none';
+  el.style.textAlign = globalAlign;
+  el.style.justifyContent = globalAlign === 'left' ? 'center' : globalAlign === 'right' ? 'center' : 'center';
+
+  if (autoFit) {
+    autoFitText(el);
+  } else if (manualFontSize) {
+    el.style.fontSize = manualFontSize + 'px';
+  }
+}
+
+// ─── GRID RENDERING ───
+function renderGrid() {
+  const grid = document.getElementById('labelGrid');
+  grid.innerHTML = '';
+
+  const pageW = 200; // mm usable
+  const cols = Math.floor(pageW / labelWidth);
+
+  labels.forEach((label, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'label-cell';
+    cell.style.width = labelWidth + 'mm';
+    cell.style.height = labelHeight + 'mm';
+
+    const text = document.createElement('div');
+    text.className = 'label-text';
+    text.contentEditable = true;
+    text.setAttribute('data-placeholder', 'click to type');
+    text.innerHTML = label.text || '';
+    text.addEventListener('input', () => {
+      label.text = text.innerHTML;
+      if (autoFit) autoFitText(text);
+    });
+    text.addEventListener('focus', () => {
+      if (!label.text) text.innerHTML = '';
+    });
+    text.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const pasted = (e.clipboardData || window.clipboardData).getData('text/plain');
+      document.execCommand('insertText', false, pasted);
+    });
+
+    const del = document.createElement('button');
+    del.className = 'delete-btn';
+    del.innerHTML = '×';
+    del.onclick = (e) => { e.stopPropagation(); labels.splice(i, 1); renderGrid(); };
+
+    cell.appendChild(text);
+    cell.appendChild(del);
+    grid.appendChild(cell);
+
+    requestAnimationFrame(() => applyStylesToElement(text));
+  });
+}
+
+// ─── AUTO-FIT TEXT ───
+function autoFitText(el) {
+  const parent = el.parentElement;
+  if (!parent) return;
+  const maxW = parent.clientWidth - 4;
+  const maxH = parent.clientHeight - 4;
+  if (maxW <= 0 || maxH <= 0) return;
+
+  let size = 20;
+  el.style.fontSize = size + 'px';
+
+  while (size > 5 && (el.scrollWidth > maxW || el.scrollHeight > maxH)) {
+    size -= 0.5;
+    el.style.fontSize = size + 'px';
+  }
+}
+
+// ─── LABEL ACTIONS ───
+function addLabels(n) {
+  for (let i = 0; i < n; i++) {
+    labels.push({ id: nextId++, text: '' });
+  }
+  renderGrid();
+}
+
+function clearAll() {
+  if (!confirm('Clear all labels?')) return;
+  labels = [];
+  renderGrid();
+}
+
+// ─── SIZE PRESETS ───
+function changeSize() {
+  const sel = document.getElementById('sizePreset');
+  const custom = document.getElementById('customSize');
+  if (sel.value === 'custom') {
+    custom.style.display = 'inline-flex';
+    return;
+  }
+  custom.style.display = 'none';
+  const [w, h] = sel.value.split(',').map(Number);
+  labelWidth = w;
+  labelHeight = h;
+  renderGrid();
+}
+
+function applyCustomSize() {
+  labelWidth = parseInt(document.getElementById('customW').value) || 43;
+  labelHeight = parseInt(document.getElementById('customH').value) || 18;
+  renderGrid();
+}
+
+// ─── BULK INPUT ───
+function openBulkModal() {
+  document.getElementById('bulkModal').classList.add('active');
+  document.getElementById('bulkText').focus();
+}
+function closeBulkModal() {
+  document.getElementById('bulkModal').classList.remove('active');
+}
+function applyBulk() {
+  const raw = document.getElementById('bulkText').value.trim();
+  if (!raw) return;
+  const lines = raw.split('\n').filter(l => l.trim());
+  lines.forEach(line => {
+    const formatted = line.trim().replace(/\s*[\/|]\s*/g, '<br>');
+    labels.push({ id: nextId++, text: formatted });
+  });
+  document.getElementById('bulkText').value = '';
+  closeBulkModal();
+  renderGrid();
+}
+
+// ─── PRINT ───
+function printLabels() {
+  const printGrid = document.getElementById('printGrid');
+  printGrid.innerHTML = '';
+
+  const filled = labels.filter(l => l.text && l.text.trim());
+  if (filled.length === 0) {
+    alert('No labels to print. Type something in the labels first.');
+    return;
+  }
+
+  filled.forEach(label => {
+    const cell = document.createElement('div');
+    cell.className = 'print-cell';
+    cell.style.width = labelWidth + 'mm';
+    cell.style.height = labelHeight + 'mm';
+    cell.style.fontFamily = globalFont;
+    cell.style.fontWeight = globalBold ? '700' : '600';
+    cell.style.fontStyle = globalItalic ? 'italic' : 'normal';
+    cell.style.textDecoration = globalUnderline ? 'underline' : 'none';
+    cell.style.textAlign = globalAlign;
+    cell.innerHTML = label.text;
+    printGrid.appendChild(cell);
+  });
+
+  // Size for print cells
+  requestAnimationFrame(() => {
+    printGrid.querySelectorAll('.print-cell').forEach(cell => {
+      if (manualFontSize && !autoFit) {
+        cell.style.fontSize = manualFontSize + 'px';
+      } else {
+        let size = 18;
+        cell.style.fontSize = size + 'px';
+        while (size > 5 && (cell.scrollWidth > cell.clientWidth || cell.scrollHeight > cell.clientHeight)) {
+          size -= 0.5;
+          cell.style.fontSize = size + 'px';
+        }
+      }
+    });
+    setTimeout(() => window.print(), 100);
+  });
+}
+
+// ─── NAV ───
+function scrollToInfo() {
+  document.getElementById('infoSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ─── KEYBOARD SHORTCUT ───
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey && e.key === 'p') {
+    e.preventDefault();
+    printLabels();
+  }
+});
+
+// Go
+init();
+</script>
+
+</body>
+</html>
