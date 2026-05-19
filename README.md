@@ -15,13 +15,10 @@ These are the **colored plastic key tags** (also called key fobs, key ID tags, o
 
 | | |
 |---|---|
-| ![Key tags in different colors](images/keytag-colors.jpg) | ![Key tag on a key](images/keytag-on-key.jpg) |
+| ![<img width="1420" height="798" alt="image" src="https://github.com/user-attachments/assets/5d23bdfc-107f-419a-a861-c834eb0133a4" />
+](images/keytag-colors.jpg) | ![<img width="1600" height="1600" alt="image" src="https://github.com/user-attachments/assets/1f99df4f-d00e-4c2e-a490-e04d8dd1ba91" />
+](images/keytag-on-key.jpg) |
 | *Available in many colors — red, blue, green, yellow, black, etc.* | *Each tag has a transparent window to slide in a paper label* |
-
-<!-- 👆 TODO: Replace with your own photos. Suggested photos:
-  - images/keytag-colors.jpg    → Photo of multiple colored key tags
-  - images/keytag-on-key.jpg    → Photo of a key tag attached to an actual key
--->
 
 ### The Problem
 
@@ -57,8 +54,9 @@ Writing labels by hand is messy and inconsistent. Ordering custom printed insert
 
 ### Standard Tag (Most Common)
 
-![Standard tag dimensions](images/keytag-dimensions.jpg)
-<!-- 👆 TODO: Add your dimension photo (the green tag with ruler measurements) -->
+![<img width="700" height="728" alt="image" src="https://github.com/user-attachments/assets/05b6a5ff-70b8-4c83-af86-0f4dc87b8457" />
+](images/keytag-dimensions.jpg)
+
 
 ```
         ┌─────────────────────────────────────┐
@@ -96,8 +94,9 @@ Writing labels by hand is messy and inconsistent. Ordering custom printed insert
 
 If your tags don't match these sizes, measure the **paper insert** that came inside the tag:
 
-![Measuring with ruler](images/keytag-measured.jpg)
-<!-- 👆 TODO: Add your photo of measuring the paper insert with a ruler -->
+![<img width="467" height="1000" alt="image" src="https://github.com/user-attachments/assets/bab494fc-cb23-45ec-a162-705c0e29bd15" />
+](images/keytag-measured.jpg)
+
 
 1. Remove the existing paper from inside the tag
 2. Measure the **width** (longer side) in cm
